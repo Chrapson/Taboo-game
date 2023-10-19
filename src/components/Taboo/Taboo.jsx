@@ -12,12 +12,20 @@ const Taboo = () => {
     getRandomColor()
   );
   const [key, setKey] = useState(0);
+  const [activePlayer, setActivePlayer] = useState(0);
+  const [round, setRound] = useState(1); // Numer rundy
 
   const location = useLocation();
   const language = new URLSearchParams(location.search).get("language") || "en";
   const roundTime = parseInt(
     new URLSearchParams(location.search).get("roundTime") || "60"
   );
+  const players = parseInt(
+    new URLSearchParams(location.search).get("players") || "2"
+  );
+  const playersName = new URLSearchParams(location.search).get("playersName");
+
+  const playerNamesArray = playersName ? playersName.split(",") : [];
 
   function getRandomColor() {
     const colors = [
@@ -56,6 +64,13 @@ const Taboo = () => {
     getWords();
   };
 
+  const handleNextPlayer = () => {
+    setActivePlayer((player) => (player + 1) % players); // Przechodzenie do kolejnego gracza
+    if (activePlayer === players - 1) {
+      setRound((round) => round + 1); // Jeśli ostatni gracz zakończył rundę, zwiększ numer rundy
+    }
+  };
+
   useEffect(() => {
     getWords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,8 +95,27 @@ const Taboo = () => {
     <>
       <div key={key} className={styles.countdownContainer}>
         <Countdown date={Date.now() + roundTime * 1000} renderer={renderer} />
-        <button onClick={handleClick}>Next Card</button>
+        <button
+          onClick={() => {
+            handleClick();
+            handleNextPlayer();
+          }}
+        >
+          Next Card
+        </button>
       </div>
+      <div className={styles.activePlayer}>
+        Active Player: {playerNamesArray[activePlayer]}
+      </div>
+      <button onClick={handleNextPlayer}>nextplayer</button>
+      <div className="players">
+        {playerNamesArray.map((name, index) => (
+          <div key={index} className={styles.playerName}>
+            {`PLAYER ${index + 1}: ${name}`}
+          </div>
+        ))}
+      </div>
+      <div className={styles.roundInfo}>{`Round ${round}`}</div>
       <div
         className={`${styles.container} ${styles.customContainer}`}
         style={{ backgroundColor: containerBackgroundColor }}
