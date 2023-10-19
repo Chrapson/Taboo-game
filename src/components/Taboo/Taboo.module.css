@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50vw;
+  margin: auto;
+  margin-top: 10vh;
+  border-radius: 5%;
+  color: white;
+  font-size: 1.5rem;
+  border: 5px solid black;
+}
+.wordToGuessContainer {
+  margin-top: 15px;
+  border-bottom: 1px solid white;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.forbiddenWordsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 10px;
+}
+.difficultyContainer {
+  border-top: 1px solid white;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.countdownContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.counter {
+  background-color: #333;
+  color: #fff;
+  margin-top: 30px;
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 8px;
+  display: inline-block;
+}
+.counterMessage {
+  margin-top: 10px;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 33vw;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 18vw;
+    font-size: 1.5rem;
+  }
+}
