@@ -1,0 +1,12 @@
+.counter {
+  background-color: #333;
+  color: #fff;
+  margin-top: 30px;
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 8px;
+  display: inline-block;
+}
+.counterMessage {
+  margin-top: 10px;
+}
