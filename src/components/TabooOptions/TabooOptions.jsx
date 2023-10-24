@@ -23,9 +23,14 @@ const SettingsComponent = () => {
   };
 
   const handlePlayersChange = (newPlayers) => {
+    if (newPlayers < 2) {
+      newPlayers = 2;
+    } else if (newPlayers > 10) {
+      newPlayers = 10;
+    }
+
     setPlayers(newPlayers);
     if (newPlayers > playersName.length) {
-      // Jeśli liczba graczy wzrosła, dodaj nowe pola do wpisywania imion
       setPlayersName((prevNames) => [
         ...prevNames,
         ...Array(newPlayers - prevNames.length).fill(""),
@@ -60,6 +65,7 @@ const SettingsComponent = () => {
           Players:{" "}
           <input
             type="number"
+            min="2"
             max="10"
             value={players}
             onChange={(e) => handlePlayersChange(e.target.value)}
