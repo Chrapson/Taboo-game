@@ -27,7 +27,7 @@
 }
 .languageSelect:focus,
 .roundSelect:focus {
-  border-color: aqua;
+  outline: none;
 }
 .playerNameInput {
   width: 50%;
