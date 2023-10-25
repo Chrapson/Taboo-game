@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import toast, { Toaster } from "react-hot-toast";
+import styles from "./TabooOptions.module.css";
 
 const SettingsComponent = () => {
   const [language, setLanguage] = useState("pl");
@@ -42,6 +42,10 @@ const SettingsComponent = () => {
       toast.error("Minimum players is 2", {
         position: "top-center",
       });
+    } else if (players > 10) {
+      toast.error("Maximum players is 10", {
+        position: "top-center",
+      });
     } else if (playersName.some((name) => name.trim() === "")) {
       toast.error("Player names cannot be empty", {
         position: "top-center",
@@ -60,49 +64,62 @@ const SettingsComponent = () => {
     return uniqueNames.size !== names.length;
   };
   return (
-    <form clas onSubmit={validateSubmit}>
-      <div>
-        Select language:{" "}
-        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-          <option value="en">English</option>
-          <option value="pl">Polish</option>
-        </select>
-      </div>
-      <div>
-        Select round time:{" "}
-        <select
-          value={roundTime}
-          onChange={(e) => setRoundTime(e.target.value)}
-        >
-          <option value="30">30s</option>
-          <option value="45">45s</option>
-          <option value="60">1m</option>
-          <option value="90">1,5m</option>
-          <option value="120">2m</option>
-        </select>
-        <div>
-          Players:{" "}
-          <input
-            type="number"
-            max="10"
-            value={players}
-            onChange={(e) => handlePlayersChange(e.target.value)}
-          />
-          {playersName.map((playersName, index) => (
-            <div key={index}>
+    <div className={styles.container}>
+      <form className={styles.formContainer} onSubmit={validateSubmit}>
+        <div className={styles.languageOptions}>
+          Select language:{" "}
+          <select
+            className={styles.languageSelect}
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="pl">Polish</option>
+          </select>
+        </div>
+        <div className={styles.roundOptions}>
+          Select round time:{" "}
+          <select
+            className={styles.roundSelect}
+            value={roundTime}
+            onChange={(e) => setRoundTime(e.target.value)}
+          >
+            <option value="30">30s</option>
+            <option value="45">45s</option>
+            <option value="60">1m</option>
+            <option value="90">1,5m</option>
+            <option value="120">2m</option>
+          </select>
+        </div>
+        <div className={styles.playersContainer}>
+          <div className={styles.playersCountOptions}>
+            Players:{" "}
+            <input
+              className={styles.playersCountInput}
+              type="number"
+              value={players}
+              onChange={(e) => handlePlayersChange(e.target.value)}
+            />
+          </div>
+          {playersName.slice(0, 10).map((playerName, index) => (
+            <div className={styles.playerNameOptions} key={index}>
               Player {index + 1} name:{" "}
               <input
+                className={styles.playerNameInput}
+                placeholder="enter name"
                 type="text"
-                value={playersName}
+                value={playerName}
                 onChange={(e) => handlePlayerNameChange(index, e.target.value)}
               />
             </div>
           ))}
         </div>
-      </div>
-      <Toaster />
-      <button type="submit">Start Game</button>
-    </form>
+        <Toaster />
+        <button className={styles.submitButton} type="submit">
+          Start Game
+        </button>
+      </form>
+    </div>
   );
 };
 
