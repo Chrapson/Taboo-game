@@ -6,11 +6,13 @@ import Translator from "./components/Translator/Translator";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/random-word" element={<Translator />} />
-      <Route path="/" element={<TabooOptions />} />
-      <Route path="/game" element={<Taboo />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/random-word" element={<Translator />} />
+        <Route path="/" element={<TabooOptions />} />
+        <Route path="/game" element={<Taboo />} />
+      </Routes>
+    </>
   );
 };
 
