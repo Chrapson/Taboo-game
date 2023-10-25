@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const SettingsComponent = () => {
   const [language, setLanguage] = useState("pl");
   const [roundTime, setRoundTime] = useState(60);
@@ -23,12 +25,6 @@ const SettingsComponent = () => {
   };
 
   const handlePlayersChange = (newPlayers) => {
-    if (newPlayers < 2) {
-      newPlayers = 2;
-    } else if (newPlayers > 10) {
-      newPlayers = 10;
-    }
-
     setPlayers(newPlayers);
     if (newPlayers > playersName.length) {
       setPlayersName((prevNames) => [
@@ -40,8 +36,31 @@ const SettingsComponent = () => {
     }
   };
 
+  const validateSubmit = (e) => {
+    e.preventDefault();
+    if (players < 2) {
+      toast.error("Minimum players is 2", {
+        position: "top-center",
+      });
+    } else if (playersName.some((name) => name.trim() === "")) {
+      toast.error("Player names cannot be empty", {
+        position: "top-center",
+      });
+    } else if (hasDuplicateNames(playersName)) {
+      toast.error("Player names cannot be the same", {
+        position: "top-center",
+      });
+    } else {
+      handleStartGame();
+    }
+  };
+
+  const hasDuplicateNames = (names) => {
+    const uniqueNames = new Set(names.map((name) => name.trim().toLowerCase()));
+    return uniqueNames.size !== names.length;
+  };
   return (
-    <div>
+    <form clas onSubmit={validateSubmit}>
       <div>
         Select language:{" "}
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -65,7 +84,6 @@ const SettingsComponent = () => {
           Players:{" "}
           <input
             type="number"
-            min="2"
             max="10"
             value={players}
             onChange={(e) => handlePlayersChange(e.target.value)}
@@ -82,9 +100,9 @@ const SettingsComponent = () => {
           ))}
         </div>
       </div>
-
-      <button onClick={handleStartGame}>Start Game</button>
-    </div>
+      <Toaster />
+      <button type="submit">Start Game</button>
+    </form>
   );
 };
 
