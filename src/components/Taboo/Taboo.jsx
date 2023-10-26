@@ -105,14 +105,18 @@ const Taboo = () => {
       </div>
       <div className={styles.gameControllerButtonsContainer}>
         <button
+          className={styles.button}
           onClick={() => {
             handleCorrectGuess();
           }}
         >
           V
         </button>
-        <button onClick={getWords}>SKIP</button>
+        <button className={styles.button} onClick={getWords}>
+          SKIP
+        </button>
         <button
+          className={styles.button}
           onClick={() => {
             handleNextPlayer();
           }}
@@ -168,8 +172,12 @@ const Taboo = () => {
         </div>
       )}
       <div className={styles.optionButtons}>
-        <button onClick={resetGame}>New Game</button>
-        <button onClick={navigateToOptions}>Back to menu</button>
+        <button className={styles.button} onClick={resetGame}>
+          New Game
+        </button>
+        <button className={styles.button} onClick={navigateToOptions}>
+          Back to menu
+        </button>
       </div>
     </div>
   );
