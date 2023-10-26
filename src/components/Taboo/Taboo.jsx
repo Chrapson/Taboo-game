@@ -12,6 +12,7 @@ const Taboo = () => {
   const language = new URLSearchParams(location.search).get("language") || "en";
   const gameMode =
     new URLSearchParams(location.search).get("gameMode") || "teamplay";
+  console.log(gameMode);
   const players = parseInt(
     new URLSearchParams(location.search).get("players") || "2"
   );

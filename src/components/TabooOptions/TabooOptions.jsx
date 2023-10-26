@@ -8,17 +8,17 @@ const SettingsComponent = () => {
   const [roundTime, setRoundTime] = useState(60);
   const [players, setPlayers] = useState(2);
   const [playersName, setPlayersName] = useState(Array(players).fill(""));
+  const [gameMode, setGameMode] = useState("teamplay");
 
   const navigate = useNavigate();
 
   const handleStartGame = () => {
     const playersNameString = playersName.join(",");
-    const gameMode = "teamplay";
+    const game = gameMode;
     navigate(
-      `/game?language=${language}&roundTime=${roundTime}&players=${players}&playersName=${playersNameString}&gameMode=${gameMode}`
+      `/game?language=${language}&roundTime=${roundTime}&players=${players}&playersName=${playersNameString}&gameMode=${game}`
     );
   };
-  const [gameMode, setGameMode] = useState("teamplay");
 
   const handlePlayerNameChange = (index, newName) => {
     const updatedNames = [...playersName];
@@ -87,7 +87,7 @@ const SettingsComponent = () => {
             onChange={(e) => setGameMode(e.target.value)}
           >
             <option value="teamplay">Teamplay</option>
-            <option value="single">1vs1vs1</option>
+            <option value="1v1v1">1vs1vs1</option>
           </select>
         </div>
         <div className={styles.roundOptions}>
