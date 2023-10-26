@@ -13,10 +13,12 @@ const SettingsComponent = () => {
 
   const handleStartGame = () => {
     const playersNameString = playersName.join(",");
+    const gameMode = "teamplay";
     navigate(
-      `/game?language=${language}&roundTime=${roundTime}&players=${players}&playersName=${playersNameString}`
+      `/game?language=${language}&roundTime=${roundTime}&players=${players}&playersName=${playersNameString}&gameMode=${gameMode}`
     );
   };
+  const [gameMode, setGameMode] = useState("teamplay");
 
   const handlePlayerNameChange = (index, newName) => {
     const updatedNames = [...playersName];
@@ -67,7 +69,7 @@ const SettingsComponent = () => {
     <div className={styles.container}>
       <form className={styles.formContainer} onSubmit={validateSubmit}>
         <div className={styles.languageOptions}>
-          Select language:{" "}
+          <span className={styles.description}>Select language: </span>
           <select
             className={styles.languageSelect}
             value={language}
@@ -77,8 +79,19 @@ const SettingsComponent = () => {
             <option value="pl">Polish</option>
           </select>
         </div>
+        <div className={styles.gameModeOptions}>
+          <span className={styles.description}>Select game mode: </span>
+          <select
+            className={styles.gameModeSelect}
+            value={gameMode}
+            onChange={(e) => setGameMode(e.target.value)}
+          >
+            <option value="teamplay">Teamplay</option>
+            <option value="single">1vs1vs1</option>
+          </select>
+        </div>
         <div className={styles.roundOptions}>
-          Select round time:{" "}
+          <span className={styles.description}>Select round time: </span>
           <select
             className={styles.roundSelect}
             value={roundTime}
@@ -93,7 +106,11 @@ const SettingsComponent = () => {
         </div>
         <div className={styles.playersContainer}>
           <div className={styles.playersCountOptions}>
-            Players:{" "}
+            {gameMode === "teamplay" ? (
+              <span>Teams: </span>
+            ) : (
+              <span>Players: </span>
+            )}
             <input
               className={styles.playersCountInput}
               type="number"
@@ -101,18 +118,39 @@ const SettingsComponent = () => {
               onChange={(e) => handlePlayersChange(e.target.value)}
             />
           </div>
-          {playersName.slice(0, 10).map((playerName, index) => (
-            <div className={styles.playerNameOptions} key={index}>
-              Player {index + 1} name:{" "}
-              <input
-                className={styles.playerNameInput}
-                placeholder="enter name"
-                type="text"
-                value={playerName}
-                onChange={(e) => handlePlayerNameChange(index, e.target.value)}
-              />
-            </div>
-          ))}
+          {gameMode === "teamplay"
+            ? playersName.slice(0, 10).map((playerName, index) => (
+                <div className={styles.playerNameOptions} key={index}>
+                  <span className={styles.description}>
+                    Team {index + 1} name:{" "}
+                  </span>
+                  <input
+                    className={styles.playerNameInput}
+                    placeholder="enter name"
+                    type="text"
+                    value={playerName}
+                    onChange={(e) =>
+                      handlePlayerNameChange(index, e.target.value)
+                    }
+                  />
+                </div>
+              ))
+            : playersName.slice(0, 10).map((playerName, index) => (
+                <div className={styles.playerNameOptions} key={index}>
+                  <span className={styles.description}>
+                    Player {index + 1} name:{" "}
+                  </span>
+                  <input
+                    className={styles.playerNameInput}
+                    placeholder="enter name"
+                    type="text"
+                    value={playerName}
+                    onChange={(e) =>
+                      handlePlayerNameChange(index, e.target.value)
+                    }
+                  />
+                </div>
+              ))}
         </div>
         <Toaster />
         <button className={styles.submitButton} type="submit">

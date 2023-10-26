@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
@@ -16,18 +16,25 @@
 .languageOptions,
 .roundOptions,
 .playersCountOptions,
-.playerNameOptions {
+.playerNameOptions,
+.gameModeOptions {
   display: flex;
   justify-content: space-between;
 }
 .languageSelect,
 .playersCountInput,
-.roundSelect {
-  width: 30%;
+.roundSelect,
+.gameModeSelect {
+  width: 35%;
 }
 .languageSelect:focus,
-.roundSelect:focus {
-  outline: none;
+.roundSelect:focus,
+.gameModeSelect:focus,
+.playerNameInput:focus,
+.playersCountInput:focus {
+  outline: 1;
+  outline-color: #000000;
+  outline-style: auto;
 }
 .playerNameInput {
   width: 50%;
@@ -36,6 +43,10 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.description {
+  display: inline-flex;
+  align-items: center;
 }
 .submitButton {
   width: 50%;
@@ -52,4 +63,15 @@
   background-color: white;
   color: black;
   border: 1px solid black;
+}
+.form-textbox,
+.form-dropdown,
+.form-textarea {
+  outline: none;
+}
+
+.form-line-active input:focus,
+.form-line-active textarea:focus,
+.form-line-active select:focus {
+  border: 1px solid #cecece !important;
 }
