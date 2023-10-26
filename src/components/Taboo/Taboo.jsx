@@ -53,7 +53,6 @@ const Taboo = () => {
       const response = await axios.get(
         `https://www.taboocardsapi.com/api/cards/random?language=${language}`
       );
-      console.log(response);
       setGameState({
         forbiddenWords: response.data.data.forbiddenWords,
         wordToGuess: response.data.data.title,
