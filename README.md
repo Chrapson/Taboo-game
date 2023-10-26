@@ -1,70 +1,70 @@
-s# Getting Started with Create React App
+# Taboo Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Taboo Game is a fun word-guessing game designed for parties and gatherings. It's inspired by the classic board game "Taboo." This project is a web-based version of the game that allows you to play with your friends on device.
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Two game modes: Teamplay and 1vs1vs1.
+- Customizable game settings, including language, round time, number of players/teams, and player/team names.
+- Word guessing with a countdown timer.
+- Scoring and tracking player/team points.
+- Responsive design for various screen sizes.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To get started with the Taboo Game, follow these steps:
 
-### `npm run build`
+ ##### 1. Clone this repository to your local machine:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/your-username/taboo-game.git
+```
+##### 2.
+```bash
+cd taboo-game
+```
+##### 3.
+```bash
+npm install
+```
+##### 4.
+```bash
+npm start
+```
+##### 5.
+``Open your web browser and go to http://localhost:3000 to play the game.``
+Customization
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can customize the game settings by going to the settings menu. Adjust the language, round time, number of players/teams, and player/team names to suit your preferences.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to Play
 
-### `npm run eject`
+- Choose your game mode (Teamplay or 1vs1vs1) and set up the game settings.
+- Start the game.
+- Players/teams take turns guessing the word displayed on the screen while the countdown timer runs.
+- You score a point if you correctly guess the word within the time limit.
+- The game keeps track of points for each player/team.
+- The game continues for a set number of rounds.
+- The player/team with the most points at the end wins.
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you'd like to contribute to this project, please follow these steps:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Fork the repository.
+Create a new branch for your feature or bug fix: git checkout -b feature/my-feature.
+Make your changes and commit them: git commit -m 'Add new feature'.
+Push to your branch: git push origin feature/my-feature.
+Create a pull request.
+License
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Acknowledgments
 
-## Learn More
+Thanks to https://www.taboocardsapi.com/en/docs/ for providing the API used to create this game.
+This project was inspired by the classic board game "Taboo."
+Have fun playing Taboo Game!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
