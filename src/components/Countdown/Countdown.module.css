@@ -5,7 +5,7 @@
   font-size: 24px;
   border-radius: 8px;
   display: inline-block;
-  min-width: 30vw;
+  min-width: 25vw;
   text-align: center;
 }
 .counterMessage {
@@ -17,4 +17,17 @@
   font-weight: bold;
   display: inline-flex;
   align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .counter {
+    min-width: 10vw;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .counter {
+    min-width: 5vw;
+  }
+  .counterMessage {
+    font-size: 24px;
+  }
 }
