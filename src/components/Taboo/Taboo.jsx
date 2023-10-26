@@ -3,29 +3,22 @@ import axios from "axios";
 import styles from "./Taboo.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import MyCountdown from "../Countdown/Countdown";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Taboo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const language = new URLSearchParams(location.search).get("language") || "en";
+  const gameMode =
+    new URLSearchParams(location.search).get("gameMode") || "teamplay";
   const players = parseInt(
     new URLSearchParams(location.search).get("players") || "2"
   );
   const playersName = new URLSearchParams(location.search).get("playersName");
   const playerNamesArray = playersName ? playersName.split(",") : [];
 
-  const [gameState, setGameState] = useState({
-    forbiddenWords: [],
-    wordToGuess: "",
-    difficulty: "",
-    containerBackgroundColor: getRandomColor(),
-  });
-  const [myCountdownKey, setMyCountdownKey] = useState(0);
-  const [activePlayer, setActivePlayer] = useState(0);
-  const [round, setRound] = useState(1);
-  const [playerPoints, setPlayerPoints] = useState(Array(players).fill(0));
-
-  function getRandomColor() {
+  const getRandomColor = () => {
     const colors = [
       "red",
       "green",
@@ -37,10 +30,22 @@ const Taboo = () => {
       "brown",
       "gray",
       "black",
+      "aquamarine",
     ];
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
-  }
+  };
+  const [gameState, setGameState] = useState({
+    forbiddenWords: [],
+    wordToGuess: "",
+    difficulty: "",
+    containerBackgroundColor: getRandomColor(),
+  });
+  const [myCountdownKey, setMyCountdownKey] = useState(0);
+  const [activePlayer, setActivePlayer] = useState(0);
+  const [round, setRound] = useState(1);
+  const [playerPoints, setPlayerPoints] = useState(Array(players).fill(0));
+  const [isLoading, setIsLoading] = useState(true);
 
   const getWords = async () => {
     try {
@@ -54,6 +59,7 @@ const Taboo = () => {
         difficulty: response.data.data.difficulty,
         containerBackgroundColor: getRandomColor(),
       });
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -92,11 +98,12 @@ const Taboo = () => {
   }, [language]);
 
   return (
-    <>
-      <button onClick={navigateToOptions}>Back to menu</button>
-      <button onClick={resetGame}>New Game</button>
-      <MyCountdown key={myCountdownKey} />
-      <div>
+    <div className={styles.container}>
+      <div className={styles.roundContainer}>
+        <MyCountdown key={myCountdownKey} />
+        <div className={styles.roundInfo}>{`Round ${round}`}</div>
+      </div>
+      <div className={styles.gameControllerButtonsContainer}>
         <button
           onClick={() => {
             handleCorrectGuess();
@@ -110,35 +117,61 @@ const Taboo = () => {
             handleNextPlayer();
           }}
         >
-          Next Player
+          {gameMode === "teamplay" ? (
+            <span>Next Team</span>
+          ) : (
+            <span>Next Player</span>
+          )}
         </button>
       </div>
-      <div className={styles.activePlayer}>
-        Active Player: {playerNamesArray[activePlayer]}
-      </div>
-      <div className="players">
-        {playerNamesArray.map((name, index) => (
-          <div key={index} className={styles.playerName}>
-            {`PLAYER : ${name} score: ${playerPoints[index]}`}
-          </div>
-        ))}
-      </div>
-      <div className={styles.roundInfo}>{`Round ${round}`}</div>
-      <div
-        className={styles.container}
-        style={{ backgroundColor: gameState.containerBackgroundColor }}
-      >
-        <div className={styles.wordToGuessContainer}>
-          {gameState.wordToGuess}
+      <div className={styles.playerInfoContainer}>
+        <div className={styles.activePlayer}>
+          {gameMode === "teamplay" ? (
+            <span>TEAM GUESSING: </span>
+          ) : (
+            <span>PLAYER GUESSING: </span>
+          )}
+          {playerNamesArray[activePlayer]}
         </div>
-        <div className={styles.forbiddenWordsContainer}>
-          {gameState.forbiddenWords.map((word, index) => (
-            <div key={index}>{word}</div>
+        <div>
+          {playerNamesArray.map((name, index) => (
+            <div key={index} className={styles.playerName}>
+              {gameMode === "teamplay"
+                ? `Team : ${name} score: ${playerPoints[index]}`
+                : `PLAYER : ${name} score: ${playerPoints[index]}`}
+            </div>
           ))}
         </div>
-        <div className={styles.difficultyContainer}>{gameState.difficulty}</div>
       </div>
-    </>
+      {!isLoading ? (
+        <div
+          className={styles.cardContainer}
+          style={{ backgroundColor: gameState.containerBackgroundColor }}
+        >
+          <div className={styles.wordToGuessContainer}>
+            {gameState.wordToGuess}
+          </div>
+          <div className={styles.forbiddenWordsContainer}>
+            {gameState.forbiddenWords.map((word, index) => (
+              <div key={index}>{word}</div>
+            ))}
+          </div>
+          <div className={styles.difficultyContainer}>
+            {gameState.difficulty}
+          </div>
+        </div>
+      ) : (
+        <div className={styles.skeletonWrapper}>
+          <Skeleton className={styles.skeletonWordToGuess} />
+          <Skeleton className={styles.skeletonForbiddenWords} />
+          <Skeleton className={styles.skeletonDifficulty} />
+        </div>
+      )}
+      <div className={styles.optionButtons}>
+        <button onClick={resetGame}>New Game</button>
+        <button onClick={navigateToOptions}>Back to menu</button>
+      </div>
+    </div>
   );
 };
 

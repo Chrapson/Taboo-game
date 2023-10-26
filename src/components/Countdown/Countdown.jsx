@@ -12,7 +12,7 @@ const MyCountdown = React.memo(({ onPlayerChange }) => {
 
   const renderer = ({ minutes, seconds, completed }) => {
     if (completed) {
-      return <span>Time's up!</span>;
+      return <span className={styles.counterMessage}>Time's up!</span>;
     } else {
       return (
         <span className={styles.counter}>
@@ -22,11 +22,7 @@ const MyCountdown = React.memo(({ onPlayerChange }) => {
     }
   };
 
-  return (
-    <div className={styles.countdownContainer}>
-      <Countdown date={Date.now() + roundTime * 1000} renderer={renderer} />
-    </div>
-  );
+  return <Countdown date={Date.now() + roundTime * 1000} renderer={renderer} />;
 });
 
 export default MyCountdown;
